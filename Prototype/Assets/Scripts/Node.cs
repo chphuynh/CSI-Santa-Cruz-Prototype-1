@@ -25,6 +25,8 @@ public abstract class Node : MonoBehaviour
 
 	public void Arrive()
 	{
+		// Test
+
 		// Leave existing current Node
 		if(GameManager.ins.currentNode != null) GameManager.ins.currentNode.Leave();
 
