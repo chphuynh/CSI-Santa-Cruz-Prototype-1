@@ -18,4 +18,10 @@ public abstract class Node : MonoBehaviour
 		col = GetComponent<Collider>();
 	}
 
+	void OnMouseDown()
+	{
+		Camera.main.transform.position = cameraPosition.position;
+		Camera.main.transform.rotation = cameraPosition.rotation;
+	}
+
 }
