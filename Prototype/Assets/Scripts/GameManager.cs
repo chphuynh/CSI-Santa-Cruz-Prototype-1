@@ -20,10 +20,10 @@ public class GameManager : MonoBehaviour
 
 	void Update()
 	{
-		if(Input.GetMouseButtonDown(1) && currentNode.GetComponent<Prop>() != null)
-		{
-			currentNode.GetComponent<Prop>().loc.Arrive();
-		}
+		// if(Input.GetMouseButtonDown(1) && currentNode.GetComponent<Prop>() != null)
+		// {
+		// 	currentNode.GetComponent<Prop>().loc.Arrive();
+		// }
 	}
 
 }
