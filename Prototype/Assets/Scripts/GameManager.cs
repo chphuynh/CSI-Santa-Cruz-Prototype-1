@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 	[HideInInspector]
 	public Node currentNode;
 
+	public CameraRig rig;
+
 	// Very bad singleton
 	void Awake()
 	{
