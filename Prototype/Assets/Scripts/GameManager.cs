@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour
 	public static GameManager ins;
 
 	[HideInInspector]
+	public bool zoomTool;
+	public bool panTool;
+
+	[HideInInspector]
 	public Node currentNode;
 
 	public CameraRig rig;
@@ -24,6 +28,16 @@ public class GameManager : MonoBehaviour
 		// {
 		// 	currentNode.GetComponent<Prop>().loc.Arrive();
 		// }
+
+		if (Input.GetKey(KeyCode.A))
+		{
+			Debug.Log (Camera.main.gameObject.transform.position);
+		}
+
+		rig.DragCheck ();
+
 	}
+
+
 
 }

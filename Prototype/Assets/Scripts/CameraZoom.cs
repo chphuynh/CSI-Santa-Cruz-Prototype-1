@@ -6,6 +6,8 @@ public class CameraZoom : MonoBehaviour
 {
 	public int normal = 60;
 	public float smooth = 5;
+	public int maxZoom = 10;
+
 	private int zoom = 60;
 
 	void Update()
@@ -16,7 +18,7 @@ public class CameraZoom : MonoBehaviour
 		} 
 		else if (Input.GetKey("x"))
 		{
-			if(zoom > 1) zoom -= 1;
+			if(zoom > maxZoom) zoom -= 1;
 		}
 
 		if(zoom != normal)
