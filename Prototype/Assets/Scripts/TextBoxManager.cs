@@ -17,6 +17,10 @@ public class TextBoxManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        while (textFile == null)
+        {
+            continue;
+        }
         if (textFile != null)
         {
             textLines = (textFile.text.Split('\n'));
@@ -34,9 +38,15 @@ public class TextBoxManager : MonoBehaviour
         {
             currentLine += 1;
         }
-        if (currentLine >= endAtLine)
+        if (currentLine > endAtLine)
         {
             textBox.SetActive(false);
+            currentLine = endAtLine;
         }
+    }
+
+    void setText(TextAsset text_file)
+    {
+        this.textFile = text_file;
     }
 }
