@@ -10,6 +10,10 @@ public class CameraRig : MonoBehaviour
 	public Transform x_axis;
 	public float moveTime;
 	public float dragSpeed = 0.75f;
+	public float leftBound = -0.8f;
+	public float rightBound = 2.8f;
+	public float topBound = 3.7f;
+	public float botBound = 0.6f;
 
 	private Vector3 dragOrigin;
 
@@ -37,7 +41,7 @@ public class CameraRig : MonoBehaviour
 
 		Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
 
-		if ( cam_pos.x <= 2.8f && cam_pos.x >= -3.5f && cam_pos.y <= 3.7f && cam_pos.y >= 0.6f) 
+		if ( cam_pos.x <= rightBound && cam_pos.x >= leftBound && cam_pos.y <= topBound && cam_pos.y >= botBound) 
 		{
 			Vector3 move = new Vector3 (pos.x * dragSpeed, pos.y * dragSpeed, 0f);
 			transform.Translate (move, Space.World);  
@@ -50,13 +54,13 @@ public class CameraRig : MonoBehaviour
 	{
 		Vector3 cam_pos = this.gameObject.transform.position;
 
-		if (cam_pos.x > 2.8f)
-			this.gameObject.transform.position = new Vector3(2.8f, cam_pos.y, cam_pos.z);
-		if (cam_pos.x < -3.5f)
-			this.gameObject.transform.position = new Vector3(-3.5f, cam_pos.y, cam_pos.z);
-		if (cam_pos.y > 3.7f)
-			this.gameObject.transform.position = new Vector3(cam_pos.x, 3.7f, cam_pos.z);
-		if (cam_pos.y < 0.6f)
-			this.gameObject.transform.position = new Vector3(cam_pos.x, 0.6f, cam_pos.z);
+		if (cam_pos.x > rightBound)
+			this.gameObject.transform.position = new Vector3(rightBound, cam_pos.y, cam_pos.z);
+		if (cam_pos.x < leftBound)
+			this.gameObject.transform.position = new Vector3(leftBound, cam_pos.y, cam_pos.z);
+		if (cam_pos.y > topBound)
+			this.gameObject.transform.position = new Vector3(cam_pos.x, topBound, cam_pos.z);
+		if (cam_pos.y < botBound)
+			this.gameObject.transform.position = new Vector3(cam_pos.x, botBound, cam_pos.z);
 	}
 }

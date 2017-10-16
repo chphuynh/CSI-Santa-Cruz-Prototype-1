@@ -10,21 +10,24 @@ public class CameraZoom : MonoBehaviour
 
 	private int zoom = 60;
 
-	void Update()
+	public void Zoom()
 	{
-		if(Input.GetKey("z"))
+		if (Input.GetKey(KeyCode.Mouse0))
 		{
-			if(zoom < normal) zoom += 1;
-		} 
-		else if (Input.GetKey("x"))
-		{
-			if(zoom > maxZoom) zoom -= 1;
+			zoom -= 2;
 		}
 
-		if(zoom != normal)
+		if (Input.GetKey(KeyCode.Mouse1))
 		{
-			Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoom, Time.deltaTime * smooth);
+			zoom += 2;
 		}
+
+		if(zoom < maxZoom) zoom = maxZoom;
+
+		if(zoom > normal ) zoom = normal;
+
+		Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoom, Time.deltaTime * smooth);
+
 
 	}
 
