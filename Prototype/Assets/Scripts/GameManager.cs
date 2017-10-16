@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 			if(button.tag != toggleTag)
 				button.GetComponent<ToggleTool>().isOn = false;
 			else
-				button.GetComponent<ToggleTool>().isOn = true;
+				button.GetComponent<ToggleTool>().isOn = !button.GetComponent<ToggleTool>().isOn;
 		}
 	}
 
