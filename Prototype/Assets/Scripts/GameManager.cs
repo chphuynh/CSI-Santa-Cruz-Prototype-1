@@ -8,9 +8,6 @@ public class GameManager : MonoBehaviour
 
 	public static GameManager ins;
 
-	[HideInInspector]
-	public Node currentNode;
-
 	public CameraRig rig;
 	public GameObject[] buttons;
 

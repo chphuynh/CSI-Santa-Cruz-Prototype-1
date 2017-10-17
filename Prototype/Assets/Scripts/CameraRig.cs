@@ -6,9 +6,6 @@ using DG.Tweening;
 public class CameraRig : MonoBehaviour 
 {
 
-	public Transform y_axis;
-	public Transform x_axis;
-	public float moveTime;
 	public float dragSpeed = 0.75f;
 	public float leftBound = -0.8f;
 	public float rightBound = 2.8f;
@@ -27,15 +24,6 @@ public class CameraRig : MonoBehaviour
 	void Start()
 	{
 		originalCameraPos = transform.position;	
-	}
-
-	public void AlignTo(Transform target)
-	{
-		Sequence seq = DOTween.Sequence();
-		seq.Append(y_axis.DOMove(target.position, moveTime));
-		seq.Join(y_axis.DORotate(new Vector3 (0f, target.rotation.eulerAngles.y, 0f), moveTime));
-		seq.Join(x_axis.DOLocalRotate(new Vector3 (target.rotation.eulerAngles.x, 0f, 0f), moveTime));
-
 	}
 
 	public void DragCheck()

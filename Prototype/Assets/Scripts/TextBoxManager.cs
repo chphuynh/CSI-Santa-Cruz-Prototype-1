@@ -8,40 +8,62 @@ public class TextBoxManager : MonoBehaviour
     public Text theText;
 
     public TextAsset textFile;
-    public string[] textLines;
-
-    public int currentLine;
-    public int endAtLine;
-    //public PlayerController player;
+    public Queue<string> textLines;
 
     // Use this for initialization
     void Start()
     {
-        while (textFile == null)
-        {
-            continue;
-        }
+        textLines = new Queue<string>();
+        StartDialogue();
+    }
+
+    void StartDialogue()
+    {
         if (textFile != null)
         {
-            textLines = (textFile.text.Split('\n'));
-        }
-        if (endAtLine == 0)
-        {
-            endAtLine = textLines.Length - 1;
+            foreach(string line in textFile.text.Split('\n'))
+            {
+                textLines.Enqueue(line);
+            }
+
+            DisplayNextLine();
         }
     }
 
     void Update()
     {
-        theText.text = textLines[currentLine];
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            currentLine += 1;
+            DisplayNextLine();
         }
-        if (currentLine > endAtLine)
+    }
+
+    void DisplayNextLine()
+    {
+        if(textLines.Count == 0)
         {
-            textBox.SetActive(false);
-            currentLine = endAtLine;
+            EndDialogue();
+            return;
+        }
+
+        string sentence = textLines.Dequeue();
+        theText.text = sentence;
+        StopAllCoroutines();
+        StartCoroutine(TypeSentence(sentence));
+    }
+
+    void EndDialogue()
+    {
+        textBox.SetActive(false);
+    }
+
+    IEnumerator TypeSentence(string sentence)
+    {
+        theText.text = "";
+        foreach(char letter in sentence.ToCharArray())
+        {
+            theText.text += letter;
+            yield return null;
         }
     }
 

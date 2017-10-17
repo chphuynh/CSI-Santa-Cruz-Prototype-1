@@ -10,6 +10,7 @@ public class TextBoxTrigger : MonoBehaviour {
     // Use this for initialization
     void Start () {
 		//manager = GameObject.Find(textBoxManager);
+        //gameObject.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -19,6 +20,7 @@ public class TextBoxTrigger : MonoBehaviour {
             Debug.Log("butts");
             manager.SetActive(true);
             manager.SendMessage("setText", textFile);
+            manager.SendMessage("StartDialogue");
         }
     }
 }
