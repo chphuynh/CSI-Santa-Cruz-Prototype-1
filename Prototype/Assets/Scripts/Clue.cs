@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class Clue : MonoBehaviour {
 
-	public Sprite sprite;
+	public Sprite imageSprite;
+	public Sprite buttonSprite;
 	public bool clueFound = false; 
 	private Image image;
 
@@ -19,9 +20,9 @@ public class Clue : MonoBehaviour {
 	{
 		if(clueFound)
 		{
-			if(image.sprite != sprite)
+			if(image.sprite != buttonSprite)
 			{
-				image.sprite = sprite;
+				image.sprite = buttonSprite;
 			}
 		}	
 	}
@@ -31,7 +32,7 @@ public class Clue : MonoBehaviour {
 		if(clueFound)
 		{
 			GameObject cluePanel = GameObject.Find("Inspect Clue").transform.GetChild(0).gameObject;
-			cluePanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = sprite;
+			cluePanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = imageSprite;
 			cluePanel.SetActive(true);
 		}
 	}

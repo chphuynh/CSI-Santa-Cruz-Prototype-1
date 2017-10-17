@@ -8,6 +8,10 @@ TagManager:
   - zoomTool
   - selectTool
   - enhanceTool
+  - knife
+  - laptop
+  - body
+  - pixelate
   layers:
   - Default
   - TransparentFX

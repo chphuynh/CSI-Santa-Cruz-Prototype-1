@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
 			rig.GetComponent<CameraZoom>().Zoom();
 		if(buttons[2].GetComponent<ToggleTool>().isOn == true)
 			rig.Select();
+		if(buttons[3].GetComponent<ToggleTool>().isOn == true)
+			rig.Enhance();
 
 	}
 
