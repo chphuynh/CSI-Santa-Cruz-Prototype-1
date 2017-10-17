@@ -63,4 +63,17 @@ public class CameraRig : MonoBehaviour
 		if (cam_pos.y < botBound)
 			this.gameObject.transform.position = new Vector3(cam_pos.x, botBound, cam_pos.z);
 	}
+
+	public void Select()
+	{	
+
+	}
+
+	bool CheckMousePosition(string objectName)
+	{
+		Vector3[] corners = new Vector3[4];
+		GameObject.Find(objectName).GetComponent<RectTransform>().GetWorldCorners(corners);
+		Rect newRect = new Rect(corners[0], corners[2]-corners[0]);
+        return newRect.Contains(Input.mousePosition);
+	}
 }

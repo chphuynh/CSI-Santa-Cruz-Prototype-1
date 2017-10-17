@@ -4,31 +4,67 @@ using UnityEngine;
 
 public class CameraZoom : MonoBehaviour 
 {
-	public int normal = 60;
-	public float smooth = 5;
-	public int maxZoom = 10;
+	public float normal = 2.3f;
+	public float smooth = 5f;
+	public float maxZoom = 2.3f;
+	public float minZoom = 0.3f;
+	public float zoomSpeed = 0.1f;
 
-	private int zoom = 60;
+	// private float zoom;
+	private Vector3 originalCameraPos;
+
+	void Start()
+	{
+		//zoom = normal;
+		originalCameraPos = transform.position;	
+	}
 
 	public void Zoom()
 	{
-		if (Input.GetKey(KeyCode.Mouse0))
+		if(!CheckMousePosition("Tool Panel") && !CheckMousePosition("Clue Panel"))
 		{
-			zoom -= 2;
+			if (Input.GetMouseButtonDown(0) && Camera.main.orthographicSize > minZoom)
+			{
+				//zoom -= zoomSpeed;6
+				ZoomOrthoCamera(Camera.main.ScreenToWorldPoint(Input.mousePosition), zoomSpeed);
+			}
+
+			if (Camera.main.orthographicSize == maxZoom)
+			{
+				transform.position = originalCameraPos;
+			} else if (Input.GetMouseButtonDown(1) && Camera.main.orthographicSize < maxZoom)
+			{
+				// 	zoom += zoomSpeed;
+				ZoomOrthoCamera(Camera.main.ScreenToWorldPoint(Input.mousePosition), -zoomSpeed);
+				if (Camera.main.orthographicSize == maxZoom)
+				{
+					transform.position = originalCameraPos;
+				}
+			} 
 		}
+	}
 
-		if (Input.GetKey(KeyCode.Mouse1))
-		{
-			zoom += 2;
-		}
+	void ZoomOrthoCamera(Vector3 zoomTowards, float amount)
+     {
+         // Calculate how much we will have to move towards the zoomTowards position
+         float multiplier = (1.0f / Camera.main.orthographicSize * amount);
+ 
+         // Move camera
+         transform.position += (zoomTowards - transform.position) * multiplier; 
+ 
+         // Zoom camera
+         Camera.main.orthographicSize -= amount;
+ 
+         // Limit zoom
+         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, minZoom, maxZoom);
+     }
 
-		if(zoom < maxZoom) zoom = maxZoom;
-
-		if(zoom > normal ) zoom = normal;
-
-		Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoom, Time.deltaTime * smooth);
-
-
+    bool CheckMousePosition(string objectName)
+	{
+		Vector3[] corners = new Vector3[4];
+		GameObject.Find(objectName).GetComponent<RectTransform>().GetWorldCorners(corners);
+		Rect newRect = new Rect(corners[0], corners[2]-corners[0]);
+        return newRect.Contains(Input.mousePosition);
 	}
 
 }
