@@ -1659,6 +1659,10 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: aee59308b8b95f2439b8507f369621d7, type: 3}
+      propertyPath: m_TagString
+      value: laptop
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aee59308b8b95f2439b8507f369621d7, type: 3}
   m_IsPrefabParent: 0
@@ -2199,7 +2203,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.6172414, g: 0.5906153, b: 0.51799864, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -3661,7 +3665,7 @@ GameObject:
   - component: {fileID: 1750696242}
   - component: {fileID: 1750696241}
   m_Layer: 0
-  m_Name: Pixelate
+  m_Name: Pixelate Body
   m_TagString: pixelate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4124,6 +4128,11 @@ MonoBehaviour:
   rightBound: 1.5
   topBound: 3.7
   botBound: 1.2
+  bodyFound: 0
+  knifeFound: 0
+  bodyEnhanced: 0
+  computerFound: 0
+  computerEnhanced: 0
 --- !u!4 &1910599746
 Transform:
   m_ObjectHideFlags: 0
