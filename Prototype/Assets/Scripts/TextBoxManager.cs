@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class TextBoxManager : MonoBehaviour
 {
     public GameObject textBox;
@@ -9,6 +10,7 @@ public class TextBoxManager : MonoBehaviour
 
     public TextAsset textFile;
     public Queue<string> textLines;
+    public string eventTag;
 
     // Use this for initialization
     void Start()
@@ -17,10 +19,12 @@ public class TextBoxManager : MonoBehaviour
         StartDialogue();
     }
 
-    void StartDialogue()
+    public void StartDialogue()
     {
         if (textFile != null)
         {
+            GameManager.ins.enableControl = false;
+
             foreach(string line in textFile.text.Split('\n'))
             {
                 textLines.Enqueue(line);
@@ -38,7 +42,7 @@ public class TextBoxManager : MonoBehaviour
         }
     }
 
-    void DisplayNextLine()
+    public void DisplayNextLine()
     {
         if(textLines.Count == 0)
         {
@@ -54,7 +58,22 @@ public class TextBoxManager : MonoBehaviour
 
     void EndDialogue()
     {
+        GameManager.ins.enableControl = true;
         textBox.SetActive(false);
+        StartEvent(eventTag);
+    }
+
+    void StartEvent(string eventName)
+    {
+        switch(eventName)
+        {
+            case "startGame":
+                textBox = GameObject.Find("Dialogue Container").transform.GetChild(0).gameObject;
+                theText = textBox.transform.GetChild(0).gameObject.GetComponent<UnityEngine.UI.Text>();
+                break;
+            default:
+                break;
+        }
     }
 
     IEnumerator TypeSentence(string sentence)
@@ -67,8 +86,8 @@ public class TextBoxManager : MonoBehaviour
         }
     }
 
-    void setText(TextAsset text_file)
+    public void setText(TextAsset text_file)
     {
-        this.textFile = text_file;
+        textFile = text_file;
     }
 }

@@ -19,8 +19,8 @@ public class TextBoxTrigger : MonoBehaviour {
         {
             Debug.Log("butts");
             manager.SetActive(true);
-            manager.SendMessage("setText", textFile);
-            manager.SendMessage("StartDialogue");
+            manager.GetComponent<TextBoxManager>().setText(textFile);
+            manager.GetComponent<TextBoxManager>().StartDialogue();
         }
     }
 }
