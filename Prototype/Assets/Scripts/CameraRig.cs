@@ -85,38 +85,51 @@ public class CameraRig : MonoBehaviour
             		case "body":
             				bodyFound = true;
             				GameObject.Find("Clue1").GetComponent<Clue>().clueFound = true;
+                    GameObject.Find("Clue1").GetComponent<Clue>().showPanel();
+                    GameManager.ins.textBoxManager.GetComponent<TextBoxManager>().StartEvent("selectBody");
+                    GameObject.Find("Select").GetComponent<ToggleTool>().isOn = false;
             			break;
             		case "knife":
             			if(Camera.main.orthographicSize == 0.3f)
             			{
-      						knifeFound = true;
-      						GameObject.Find("Clue2").GetComponent<Clue>().clueFound = true;
-      					}
-      					else
-      					{
-      						Debug.Log("maybe you should zoom in");
-      					}
+                    GameManager.ins.textBoxManager.GetComponent<TextBoxManager>().StartEvent("selectKnife");
+      						  knifeFound = true;
+      						  GameObject.Find("Clue2").GetComponent<Clue>().clueFound = true;
+                    GameObject.Find("Clue2").GetComponent<Clue>().showPanel();
+                    GameObject.Find("Select").GetComponent<ToggleTool>().isOn = false;
+      					  }
+        					else
+        					{
+        						//Debug.Log("maybe you should zoom in");
+                    GameManager.ins.textBoxManager.GetComponent<TextBoxManager>().StartEvent("zoomKnife");
+        					}
             			break;
             		case "laptop":
             			if(Camera.main.orthographicSize == 0.3f)
             			{
-      						if(computerEnhanced)
-      						{
-      							computerFound = true;
-      							GameObject.Find("Clue3").GetComponent<Clue>().clueFound = true;
-      						}
-      						else
-      						{
-      							Debug.Log("maybe you should enhance it");
-      						}
-      					}
-      					else
-      					{
-      						Debug.Log("maybe you should zoom in");
-      					}
+        						if(computerEnhanced)
+        						{
+        							computerFound = true;
+        							GameObject.Find("Clue3").GetComponent<Clue>().clueFound = true;
+                      GameObject.Find("Clue3").GetComponent<Clue>().showPanel();
+                      GameManager.ins.textBoxManager.GetComponent<TextBoxManager>().StartEvent("selectLaptop");
+                      GameObject.Find("Select").GetComponent<ToggleTool>().isOn = false;
+        						}
+        						else
+        						{
+        							//Debug.Log("maybe you should enhance it");
+                      GameManager.ins.textBoxManager.GetComponent<TextBoxManager>().StartEvent("selectLaptopNoEnhance");
+        						}
+      					  }
+        					else
+        					{
+        						//Debug.Log("maybe you should zoom in");
+                    GameManager.ins.textBoxManager.GetComponent<TextBoxManager>().StartEvent("zoomLaptop");
+        					}
             			break;
             		case "pixelate":
-            			Debug.Log("Maybe you should enhance it");
+            			//Debug.Log("Maybe you should enhance it");
+                  GameManager.ins.textBoxManager.GetComponent<TextBoxManager>().StartEvent("selectPixelate");
             			break;
             		default:
             			return;
@@ -149,18 +162,25 @@ public class CameraRig : MonoBehaviour
             				{
 	            				GameObject panel = GameObject.Find("Enhance Clue").transform.GetChild(0).gameObject;
 		            			panel.transform.GetChild(1).GetChild(1).gameObject.GetComponent<Enhance>().enhanceObject = "laptop";
-		            			panel.SetActive(true);
+                      panel.SetActive(true);
+                      GameObject.Find("Enhance").GetComponent<ToggleTool>().isOn = false;
             				}
             				else
             				{
-            					Debug.Log("maybe you should zoom in");
+            					//Debug.Log("maybe you should zoom in");
+                      GameManager.ins.textBoxManager.GetComponent<TextBoxManager>().StartEvent("zoomLaptop");
             				}
             			}
+                  else
+                  {
+                    GameManager.ins.textBoxManager.GetComponent<TextBoxManager>().StartEvent("enhancedLaptop");
+                  }
             			break;
             		case "pixelate":
 	            		GameObject panel2 = GameObject.Find("Enhance Clue").transform.GetChild(0).gameObject;
 	            		panel2.transform.GetChild(1).GetChild(1).gameObject.GetComponent<Enhance>().enhanceObject = "body";
 	            		panel2.SetActive(true);
+                  GameObject.Find("Enhance").GetComponent<ToggleTool>().isOn = false;
             			break;
             		default:
             			return;

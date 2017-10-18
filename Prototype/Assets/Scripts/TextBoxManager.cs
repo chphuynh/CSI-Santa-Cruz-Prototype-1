@@ -22,7 +22,8 @@ public class TextBoxManager : MonoBehaviour
     public void StartDialogue()
     {
         if (textFile != null)
-        {
+        {   
+            textBox.gameObject.SetActive(true);
             GameManager.ins.enableControl = false;
 
             foreach(string line in textFile.text.Split('\n'))
@@ -63,17 +64,54 @@ public class TextBoxManager : MonoBehaviour
         StartEvent(eventTag);
     }
 
-    void StartEvent(string eventName)
+    public void StartEvent(string eventName)
     {
         switch(eventName)
         {
             case "startGame":
                 textBox = GameObject.Find("Dialogue Container").transform.GetChild(0).gameObject;
                 theText = textBox.transform.GetChild(0).gameObject.GetComponent<UnityEngine.UI.Text>();
+                textFile = Resources.Load("Text/opening_text") as TextAsset;
+                eventTag = "";
+                StartDialogue();
+                break;
+            case "zoomKnife":
+                StartDialogueWithPath("Text/zoom_knife");
+                break;
+            case "selectKnife":
+                StartDialogueWithPath("Text/select_knife");
+                break;
+            case "zoomLaptop":
+                StartDialogueWithPath("Text/zoom_laptop");
+                break;
+            case "selectLaptop":
+                StartDialogueWithPath("Text/select_laptop");
+                break;
+            case "enhanceLaptop":
+                StartDialogueWithPath("Text/enhance_laptop");
+                break;
+            case "enhancedLaptop":
+                StartDialogueWithPath("Text/enhanced_laptop");
+                break;
+            case "selectLaptopNoEnhance":
+                StartDialogueWithPath("Text/select_laptop_noEnhance");
+                break;
+            case "selectPixelate":
+                StartDialogueWithPath("Text/select_pixelate");
+                break;
+            case "selectBody":
+                StartDialogueWithPath("Text/select_body");
                 break;
             default:
                 break;
         }
+    }
+
+    void StartDialogueWithPath(string path)
+    {
+        textFile = Resources.Load(path) as TextAsset;
+        eventTag = "";
+        StartDialogue();
     }
 
     IEnumerator TypeSentence(string sentence)
