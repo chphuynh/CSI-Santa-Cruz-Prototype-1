@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
 
 	void Update()
 	{
+		if (Input.GetKey("escape"))
+            Application.Quit();
+            
 		if(enableControl)
 		{
 			if(buttons[0].GetComponent<ToggleTool>().isOn == true)
