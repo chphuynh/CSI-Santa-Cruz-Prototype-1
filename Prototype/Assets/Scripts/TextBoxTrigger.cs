@@ -17,7 +17,6 @@ public class TextBoxTrigger : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.N))
         {
-            Debug.Log("butts");
             manager.SetActive(true);
             manager.GetComponent<TextBoxManager>().setText(textFile);
             manager.GetComponent<TextBoxManager>().StartDialogue();
