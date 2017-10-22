@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 	public CameraRig rig;
 	public GameObject[] buttons;
 	public GameObject textBoxManager;
+	public float scrollSpeed;
 
 	public bool enableControl = true;
 
@@ -26,15 +27,23 @@ public class GameManager : MonoBehaviour
             Application.Quit();
             
 		if(enableControl)
-		{
-			if(buttons[0].GetComponent<ToggleTool>().isOn == true)
-				rig.DragCheck ();
-			if(buttons[1].GetComponent<ToggleTool>().isOn == true)
+		{	
+			if(GameObject.Find("Inspect Clue Panel") == null && GameObject.Find("Enhance Panel") == null)
+			{
+				rig.EdgeMove();
 				rig.GetComponent<CameraZoom>().Zoom();
-			if(buttons[2].GetComponent<ToggleTool>().isOn == true)
 				rig.Select();
-			if(buttons[3].GetComponent<ToggleTool>().isOn == true)
 				rig.Enhance();
+			}	
+
+			// if(buttons[0].GetComponent<ToggleTool>().isOn == true)
+			// 	rig.DragCheck ();
+			// if(buttons[1].GetComponent<ToggleTool>().isOn == true)
+			// 	rig.GetComponent<CameraZoom>().Zoom();
+			// if(buttons[2].GetComponent<ToggleTool>().isOn == true)
+			// 	rig.Select();
+			// if(buttons[3].GetComponent<ToggleTool>().isOn == true)
+			// 	rig.Enhance();
 		} else
 		{
 			if(Input.anyKeyDown)

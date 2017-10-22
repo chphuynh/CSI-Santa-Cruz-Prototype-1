@@ -10,37 +10,33 @@ public class CameraZoom : MonoBehaviour
 	public float minZoom = 0.3f;
 	public float zoomSpeed = 0.1f;
 
-	// private float zoom;
 	private Vector3 originalCameraPos;
 
 	void Start()
 	{
-		//zoom = normal;
 		originalCameraPos = transform.position;	
 	}
 
+
 	public void Zoom()
 	{
-		if(!CheckMousePosition("Tool Panel") && !CheckMousePosition("Clue Panel"))
+		if (Input.GetAxis("Mouse ScrollWheel") > 0f && Camera.main.orthographicSize > minZoom)
 		{
-			if (Input.GetMouseButtonDown(0) && Camera.main.orthographicSize > minZoom)
-			{
-				//zoom -= zoomSpeed;6
-				ZoomOrthoCamera(Camera.main.ScreenToWorldPoint(Input.mousePosition), zoomSpeed);
-			}
+			ZoomOrthoCamera(Camera.main.ScreenToWorldPoint(Input.mousePosition), zoomSpeed);
+		}
 
+		if (Camera.main.orthographicSize == maxZoom)
+		{
+			transform.position = originalCameraPos;
+		} 
+		else if (Input.GetAxis("Mouse ScrollWheel") < 0f  && Camera.main.orthographicSize < maxZoom)
+		{
+			ZoomOrthoCamera(Camera.main.ScreenToWorldPoint(Input.mousePosition), -zoomSpeed);
+			
 			if (Camera.main.orthographicSize == maxZoom)
 			{
 				transform.position = originalCameraPos;
-			} else if (Input.GetMouseButtonDown(1) && Camera.main.orthographicSize < maxZoom)
-			{
-				// 	zoom += zoomSpeed;
-				ZoomOrthoCamera(Camera.main.ScreenToWorldPoint(Input.mousePosition), -zoomSpeed);
-				if (Camera.main.orthographicSize == maxZoom)
-				{
-					transform.position = originalCameraPos;
-				}
-			} 
+			}
 		}
 	}
 
