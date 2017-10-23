@@ -20,7 +20,7 @@ public class CameraZoom : MonoBehaviour
 
 	public void Zoom()
 	{
-		if (Input.GetAxis("Mouse ScrollWheel") > 0f && Camera.main.orthographicSize > minZoom)
+		if ((Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKeyDown("z")) && Camera.main.orthographicSize > minZoom)
 		{
 			ZoomOrthoCamera(Camera.main.ScreenToWorldPoint(Input.mousePosition), zoomSpeed);
 		}
@@ -29,7 +29,7 @@ public class CameraZoom : MonoBehaviour
 		{
 			transform.position = originalCameraPos;
 		} 
-		else if (Input.GetAxis("Mouse ScrollWheel") < 0f  && Camera.main.orthographicSize < maxZoom)
+		else if ((Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetKeyDown("x")) && Camera.main.orthographicSize < maxZoom)
 		{
 			ZoomOrthoCamera(Camera.main.ScreenToWorldPoint(Input.mousePosition), -zoomSpeed);
 			

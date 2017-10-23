@@ -12,9 +12,13 @@ public class TextBoxManager : MonoBehaviour
     public Queue<string> textLines;
     public string eventTag;
 
+    private bool typing;
+    private string currentSentence;
+
     // Use this for initialization
     void Start()
     {
+        typing = false;
         textLines = new Queue<string>();
         StartDialogue();
     }
@@ -47,14 +51,31 @@ public class TextBoxManager : MonoBehaviour
     {
         if(textLines.Count == 0)
         {
+            typing = false;
             EndDialogue();
+            if(eventTag == "startGame")
+                eventTag = "help";
+            else
+                eventTag = "";
             return;
         }
 
-        string sentence = textLines.Dequeue();
-        theText.text = sentence;
-        StopAllCoroutines();
-        StartCoroutine(TypeSentence(sentence));
+        if(typing)
+        {
+            theText.text = currentSentence;
+            typing = false;
+            StopAllCoroutines();
+            return;
+        }
+        else
+        {
+            string sentence = textLines.Dequeue();
+            currentSentence = sentence;
+            theText.text = sentence;
+            StopAllCoroutines();
+            typing = true;
+            StartCoroutine(TypeSentence(sentence));
+        }
     }
 
     void EndDialogue()
@@ -72,7 +93,6 @@ public class TextBoxManager : MonoBehaviour
                 textBox = GameObject.Find("Dialogue Container").transform.GetChild(0).gameObject;
                 theText = textBox.transform.GetChild(0).gameObject.GetComponent<UnityEngine.UI.Text>();
                 textFile = Resources.Load("Text/opening_text") as TextAsset;
-                eventTag = "";
                 StartDialogue();
                 break;
             case "zoomKnife":
@@ -102,6 +122,16 @@ public class TextBoxManager : MonoBehaviour
             case "selectBody":
                 StartDialogueWithPath("Text/select_body");
                 break;
+            case "zoomBody":
+                StartDialogueWithPath("Text/zoom_body");
+                break;
+            case "moreClues":
+                StartDialogueWithPath("Text/more_clues");
+                break;
+            case "help":
+                GameObject panel = GameObject.Find("Help Menu").transform.GetChild(0).gameObject;
+                panel.SetActive(true);
+                break;
             default:
                 break;
         }
@@ -122,6 +152,7 @@ public class TextBoxManager : MonoBehaviour
             theText.text += letter;
             yield return null;
         }
+        typing = false;
     }
 
     public void setText(TextAsset text_file)

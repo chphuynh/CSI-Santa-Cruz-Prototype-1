@@ -25,26 +25,18 @@ public class GameManager : MonoBehaviour
 	{
 		if (Input.GetKey("escape"))
             Application.Quit();
-            
+
 		if(enableControl)
 		{	
-			if(GameObject.Find("Inspect Clue Panel") == null && GameObject.Find("Enhance Panel") == null)
+			if(GameObject.Find("Inspect Clue Panel") == null && GameObject.Find("Enhance Panel") == null && GameObject.Find("Help Panel") == null)
 			{
 				rig.EdgeMove();
 				rig.GetComponent<CameraZoom>().Zoom();
 				rig.Select();
 				rig.Enhance();
 			}	
-
-			// if(buttons[0].GetComponent<ToggleTool>().isOn == true)
-			// 	rig.DragCheck ();
-			// if(buttons[1].GetComponent<ToggleTool>().isOn == true)
-			// 	rig.GetComponent<CameraZoom>().Zoom();
-			// if(buttons[2].GetComponent<ToggleTool>().isOn == true)
-			// 	rig.Select();
-			// if(buttons[3].GetComponent<ToggleTool>().isOn == true)
-			// 	rig.Enhance();
-		} else
+		} 
+		else
 		{
 			if(Input.anyKeyDown)
 				textBoxManager.GetComponent<TextBoxManager>().DisplayNextLine();
